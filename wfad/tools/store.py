@@ -10,6 +10,8 @@ from pathlib import Path
 from typing import Any
 
 COLLECTION = os.environ.get("FIRESTORE_COLLECTION", "wfad_runs")
+# Named database in this project is `wfad` (not the console default "(default)").
+DATABASE = os.environ.get("FIRESTORE_DATABASE", "wfad")
 
 
 def _loads(payload: str | dict[str, Any]) -> dict[str, Any]:
@@ -64,7 +66,7 @@ def record_run(package_json: str) -> dict:
     try:
         from google.cloud import firestore  # imported lazily so `adk web` still starts
 
-        client_kwargs: dict[str, Any] = {}
+        client_kwargs: dict[str, Any] = {"database": DATABASE}
         if project:
             client_kwargs["project"] = project
         db = firestore.Client(**client_kwargs)
@@ -76,6 +78,7 @@ def record_run(package_json: str) -> dict:
             "backend": "firestore",
             "run_id": ref.id,
             "collection": COLLECTION,
+            "database": DATABASE,
             "project": project or "(client default)",
         }
     except Exception as exc:  # noqa: BLE001
