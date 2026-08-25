@@ -1,0 +1,9 @@
+.venv/
+.git/
+__pycache__/
+*.pyc
+.env
+wfad/.env
+local_runs/
+.adk/
+.DS_Store

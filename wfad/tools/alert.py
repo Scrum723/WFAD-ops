@@ -31,10 +31,6 @@ def _loads(payload: str | dict[str, Any] | list[Any]) -> Any:
         return payload
 
 
-def _blob(*parts: Any) -> str:
-    return " ".join(json.dumps(p, default=str).lower() for p in parts)
-
-
 def _recipients() -> list[str]:
     raw = os.environ.get("WFAD_RECIPIENTS", "operator@localhost")
     return [item.strip() for item in raw.split(",") if item.strip()]
@@ -58,7 +54,6 @@ def decide_alert(briefing_json: str, hazards_json: str = "[]") -> dict:
     if not isinstance(hazards, list):
         hazards = []
 
-    text = _blob(briefing, hazards)
     severity = "ROUTINE"
     matched = "no active products"
 
@@ -68,22 +63,21 @@ def decide_alert(briefing_json: str, hazards_json: str = "[]") -> dict:
             severity = level
             matched = why
 
+    # Rank from NWS hazard objects only. Do not scan briefing prose — phrases
+    # like "no active warnings" would otherwise trip CRITICAL.
     for hazard in hazards:
         event = " ".join(
             str(hazard.get(k) or "")
             for k in ("event", "headline", "severity", "urgency")
         ).lower()
+        if not event.strip():
+            continue
         if any(n in event for n in CRITICAL_NEEDLES):
             bump("CRITICAL", event[:120] or "warning-class product")
         elif any(n in event for n in HIGH_NEEDLES):
             bump("HIGH", event[:120] or "watch-class product")
         elif any(n in event for n in MODERATE_NEEDLES):
             bump("MODERATE", event[:120] or "advisory-class product")
-
-    if severity == "ROUTINE" and any(n in text for n in CRITICAL_NEEDLES):
-        bump("CRITICAL", "warning language in briefing text")
-    elif severity == "ROUTINE" and "watch" in text:
-        bump("HIGH", "watch language in briefing text")
 
     if severity == "CRITICAL":
         channels = ["email", "social_stub"]
