@@ -124,12 +124,30 @@ gcloud run deploy wfad-agent \
   --region us-central1 \
   --project wfad-506515 \
   --allow-unauthenticated \
-  --set-env-vars="GOOGLE_CLOUD_PROJECT=wfad-506515,GOOGLE_CLOUD_LOCATION=us-central1,GOOGLE_GENAI_USE_VERTEXAI=TRUE,GOOGLE_GENAI_USE_ENTERPRISE=TRUE,FIRESTORE_DATABASE=wfad,FIRESTORE_COLLECTION=wfad_runs"
+  --memory 1Gi \
+  --set-env-vars="GOOGLE_CLOUD_PROJECT=wfad-506515,GOOGLE_CLOUD_LOCATION=global,GOOGLE_GENAI_USE_VERTEXAI=TRUE,GOOGLE_GENAI_USE_ENTERPRISE=TRUE,FIRESTORE_DATABASE=wfad,FIRESTORE_COLLECTION=wfad_runs"
 ```
 
-Service URL looks like `https://wfad-agent-xxxxx.us-central1.run.app`.
+**Live service (us-central1):** https://wfad-agent-kbahexw6ca-uc.a.run.app
 
-Wednesday: topic `wfad-triggers` with a push subscription to `https://SERVICE_URL/trigger`, or Cloud Scheduler hitting the same URL. One real email (your inbox or the WHAM list) or one X post — not four platforms.
+```bash
+curl -sS -X POST https://wfad-agent-kbahexw6ca-uc.a.run.app/trigger \
+  -H 'Content-Type: application/json' \
+  -d '{"location":"Rochester, NY","reason":"scheduled_briefing"}'
+```
+
+Background proof already in this project:
+
+- Pub/Sub topic `wfad-triggers`, push subscription `wfad-triggers-push` → `/trigger` (ack 120s)
+- Cloud Scheduler job `wfad-scheduled-briefing` daily 14:30 America/New_York
+- Firestore database `wfad`, collection `wfad_runs` (Pub/Sub run example: `gzMJdrmUy6vDM75Hfhhn`)
+
+```bash
+gcloud pubsub topics publish wfad-triggers --project=wfad-506515 \
+  --message='{"location":"Rochester, NY","reason":"pubsub_push"}'
+```
+
+One real email went to `cclottin@gmail.com` (subject `WFAD ROUTINE — Rochester, NY`) with the Cloud Run briefing. Cloud Run `disseminate_package` still labels SMTP as a stub until `SMTP_*` secrets are set on the service.
 
 ## What not to do
 
@@ -140,12 +158,13 @@ Wednesday: topic `wfad-triggers` with a push subscription to `https://SERVICE_UR
 
 ## Schedule
 
-| When | Done when |
+| When | Status |
 | --- | --- |
-| Today | Repo, disclosure, `root_agent`, Watch + `record_run`, `adk web`, one Firestore (or local) document |
-| Tuesday | Alert + Disseminate on Cloud Run; console screenshots |
-| Wednesday | One real outbound; Pub/Sub or Scheduler; four-box diagram |
-| Thursday | README + video (shot list in `docs/DEMO_SHOTLIST.md`) |
+| Skeleton + first Firestore doc | Done (`byXSNEQDZkcBt4LC6JDk`) |
+| Cloud Run loop | Done — `.run.app`, Vertex env, four tools |
+| Pub/Sub + Scheduler | Done — topic `wfad-triggers`, job `wfad-scheduled-briefing` |
+| One real outbound | Done — email to `cclottin@gmail.com` |
+| Thursday video | Record from `docs/DEMO_SHOTLIST.md` (cap 4:00) |
 | Friday–Saturday | Devpost draft Friday, submit Saturday. Do not wait until Monday 31 August. |
 
 Public repo. If it is ever made private, grant `testing@devpost.com` and `cloudhackathons@google.com`.
