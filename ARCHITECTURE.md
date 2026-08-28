@@ -1,14 +1,16 @@
-# WFAD architecture
+# WFAD ops architecture
 
-One root agent. Four tools. Four boxes. Not a five-agent fleet.
+**This is the ops fork** (`Scrum723/WFAD-ops`). Contest four-box diagram lives on `Scrum723/WFAD` and stays frozen through judging.
 
-Gemini 3.5 Flash is the contest LLM. This repo is authored in a coding assistant; that assistant is not in the runtime.
+One root agent. Story desk is three *tools* on that agent, not three agents. Doc and Leesa are separate products.
 
 ```mermaid
 flowchart LR
-  A["1. Trigger<br/>Pub/Sub or HTTP POST"] --> B["2. WFAD root_agent<br/>Gemini 3.5 Flash · ADK · Cloud Run"]
-  B --> C["3. Tools<br/>Watch · Forecast · Alert · Disseminate"]
-  C --> D["4. Output<br/>Firestore run + one outbound channel"]
+  T[Trigger] --> W[Watch]
+  W --> F[Forecast]
+  F --> A[Alert]
+  A --> S[Story desk<br/>draft / revise / approve]
+  S --> L[Leesa inbox<br/>approved bundle]
 ```
 
 | Box | What it is | What it is not |

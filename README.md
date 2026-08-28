@@ -1,6 +1,20 @@
+# WFAD-ops — Story desk fork
+
+**This is not the contest submission.** Contest code, video, and `.run.app` stay on [`Scrum723/WFAD`](https://github.com/Scrum723/WFAD) through judging. After 31 August 2026, 5:00 p.m. PT, new work lives here.
+
+Story desk is an **addition to WFAD** (same `root_agent`), not a new agent. Doc and Leesa remain the front brains. See [`docs/STACK.md`](docs/STACK.md) and [`docs/STORY_DESK.md`](docs/STORY_DESK.md).
+
+```text
+Watch Rochester, then draft a story hit.
+Revise: lead with tonight.
+Approve the package for Leesa.
+```
+
+Approve writes `~/Desktop/Doc Weather Content/bundles/<slug>/` (`insight.md`, `meta.yaml`). Leesa posts. WFAD does not.
+
 # WFAD — Watch, Forecast, Alert, Disseminate
 
-**Track:** Taskmaster
+**Track:** Taskmaster (contest parent)
 
 An event arrives; the agent writes a briefing, decides urgency, and sends the package without a human driving each step.
 
