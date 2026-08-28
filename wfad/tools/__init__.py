@@ -4,6 +4,7 @@ from .alert import decide_alert
 from .disseminate import disseminate_package
 from .store import record_run
 from .story import approve_package, draft_story, revise_story
+from .render import render_hit_clip, render_hit_graphic
 
 __all__ = [
     "watch_conditions",
@@ -11,6 +12,8 @@ __all__ = [
     "decide_alert",
     "draft_story",
     "revise_story",
+    "render_hit_graphic",
+    "render_hit_clip",
     "approve_package",
     "disseminate_package",
     "record_run",

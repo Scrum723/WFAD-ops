@@ -25,3 +25,5 @@ One `root_agent`. Three **tools**, not three agents:
 3. `approve_package` — writes `~/Desktop/Doc Weather Content/bundles/<slug>/`
 
 Leesa already watches that bundles folder (`insight.md` + `meta.yaml` + optional video).
+
+Graphics/video go through `MEDIA_PROVIDER` (`stub` or `google`). See [`COMPETITIONS.md`](COMPETITIONS.md). Google One is the consumer Gemini/Flow app; WFAD media uses AI Studio or Vertex on the same Google account.
