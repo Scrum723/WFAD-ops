@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WFAD desk</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <header class="top">
+    <div class="brand">
+      <div class="mark">W</div>
+      <div>
+        <h1>WFAD</h1>
+        <p>Watch · Forecast · Alert · Story — Gemini 3.5 Flash</p>
+      </div>
+    </div>
+    <div class="toggles">
+      <label class="toggle">
+        <input type="checkbox" id="autopilot" checked />
+        Autopilot
+      </label>
+      <span id="model-label">gemini-3.5-flash</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="thread" id="thread">
+      <div class="empty" id="empty">
+        <h2>What should go out?</h2>
+        <p>Say a place and a product. Autopilot designs the package with Gemini and waits for your approval. Leesa posts only after you approve.</p>
+      </div>
+    </div>
+  </main>
+
+  <div class="composer-wrap">
+    <div class="composer">
+      <textarea id="input" rows="1" placeholder="Rochester 5-day hit for socials…"></textarea>
+      <button class="approve" id="approve" hidden>Approve</button>
+      <button class="send" id="send">Send</button>
+    </div>
+    <p class="hint" id="hint">Autopilot on: WFAD runs Watch → Story. It will not send to Leesa until you approve.</p>
+  </div>
+  <script src="/static/app.js"></script>
+</body>
+</html>

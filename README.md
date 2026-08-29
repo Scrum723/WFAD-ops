@@ -12,6 +12,19 @@ Approve the package for Leesa.
 
 Approve writes `~/Desktop/Doc Weather Content/bundles/<slug>/` (`insight.md`, `meta.yaml`). Leesa posts. WFAD does not.
 
+## Desk website (testable UI)
+
+Grok-style chat. Gemini 3.5 Flash understands the ask. Autopilot runs Watch → Forecast → Alert → Story and **stops for your approval**.
+
+```bash
+cd ~/WFAD-ops
+source ~/WFAD/.venv/bin/activate   # or python3 -m venv .venv && pip install -r requirements.txt
+python -m desk.app
+# open http://127.0.0.1:8788
+```
+
+Toggle **Autopilot**. Try: `Rochester 5-day hit for socials`. Click **Approve** to write the Leesa bundle. LLM is Gemini (`WFAD_AGENT_MODEL`). Media stays `MEDIA_PROVIDER=stub` until an AI Studio/Vertex key is set.
+
 # WFAD — Watch, Forecast, Alert, Disseminate
 
 **Track:** Taskmaster (contest parent)
