@@ -137,7 +137,7 @@ def watch_conditions(
     latitude: float = 0.0,
     longitude: float = 0.0,
 ) -> dict:
-    """Pull current NWS hazards and observations for a target point.
+    """Pull weather products. Prefers Doc's neural-network snapshot; NWS if Doc is down.
 
     Args:
         city: City name, for example "Rochester, NY". Used when lat/lon are 0.
@@ -154,6 +154,17 @@ def watch_conditions(
         lat, lon = float(latitude), float(longitude)
     else:
         lat, lon, source = _geocode(city or "Rochester, NY")
+
+    try:
+        from .doc_client import fetch_snapshot, snapshot_to_watch
+
+        snap = fetch_snapshot(lat, lon, city or "Rochester, NY")
+        watch = snapshot_to_watch(snap, city or "Rochester, NY", lat, lon)
+        watch["geocode_source"] = source
+        watch["doc_ok"] = True
+        return watch
+    except Exception as exc:  # noqa: BLE001
+        failures.append(f"doc_snapshot:{exc}")
 
     point: dict[str, Any] = {}
     office = None

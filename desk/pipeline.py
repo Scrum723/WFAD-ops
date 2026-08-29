@@ -7,7 +7,7 @@ from typing import Any
 
 from wfad.tools.alert import decide_alert
 from wfad.tools.forecast import write_briefing
-from wfad.tools.render import render_hit_clip, render_hit_graphic
+from wfad.tools.neural_media import design_and_render_media
 from wfad.tools.story import approve_package, draft_story, revise_story
 from wfad.tools.watch import watch_conditions
 
@@ -20,23 +20,17 @@ def run_draft(location: str, focus: str = "hit") -> dict[str, Any]:
         json.dumps({"watch": watch, "briefing": briefing, "alert": alert}),
         focus=focus or "hit",
     )
-    hit = (story.get("products") or {}).get("hit") or {}
-    graphic = render_hit_graphic(
-        hit.get("clip_prompt") or briefing.get("script") or f"Doc Weather board for {location}",
-        aspect_ratio="16:9",
-    )
-    clip = render_hit_clip(
-        hit.get("clip_prompt") or briefing.get("script") or "",
-        duration_s=8,
-        aspect_ratio="9:16",
+    neural = design_and_render_media(
+        json.dumps(watch), json.dumps(briefing), focus=focus or "hit"
     )
     return {
         "watch": watch,
         "briefing": briefing,
         "alert": alert,
         "story": story,
-        "graphic": graphic,
-        "clip": clip,
+        "neural": neural,
+        "graphic": neural.get("graphic") or {},
+        "clip": neural.get("clip") or {},
     }
 
 
@@ -70,6 +64,8 @@ def package_card(bundle: dict[str, Any]) -> dict[str, Any]:
         "graphic_status": graphic.get("status") or graphic.get("provider"),
         "clip_status": clip.get("status") or clip.get("provider"),
         "media_provider": graphic.get("provider") or clip.get("provider") or "stub",
+        "weather_source": watch.get("source"),
+        "neural_model": (bundle.get("neural") or {}).get("design", {}).get("model"),
         "bundle_dir": leesa.get("bundle_dir"),
         "handed_off": bool(leesa.get("handed_off")),
     }

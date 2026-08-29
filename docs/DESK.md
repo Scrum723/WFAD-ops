@@ -14,7 +14,8 @@ python -m desk
 | Autopilot on | Watch → Forecast → Alert → draft story + media prompts. Stops. |
 | Approve | Writes Leesa bundle. Does not post. |
 | Autopilot off | Chat until you ask for a package. |
-| LLM | `WFAD_AGENT_MODEL` (Gemini). If Vertex/AI Studio is down, a local parser still drafts. |
-| Media | `MEDIA_PROVIDER=stub` or `google` |
+| Weather | **Doc** snapshot (`DOC_API_BASE`) — 14-module neural net. Thin NWS if Doc is down. |
+| LLM | `WFAD_AGENT_MODEL` (Gemini 3.5 Flash). Designs copy + media prompts. |
+| Media net | `design_and_render_media` → `MEDIA_PROVIDER=stub` or `google` (Veo/Omni/Nano Banana) |
 
 Contest `Scrum723/WFAD` is not this site. Do not deploy the desk over the frozen `.run.app` until judging ends.

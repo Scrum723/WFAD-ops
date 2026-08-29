@@ -9,6 +9,7 @@ from .tools.alert import decide_alert
 from .tools.disseminate import disseminate_package
 from .tools.forecast import write_briefing
 from .tools.store import record_run
+from .tools.neural_media import design_and_render_media
 from .tools.render import render_hit_clip, render_hit_graphic
 from .tools.story import approve_package, draft_story, revise_story
 from .tools.watch import watch_conditions
@@ -27,6 +28,7 @@ root_agent = Agent(
         decide_alert,
         draft_story,
         revise_story,
+        design_and_render_media,
         render_hit_graphic,
         render_hit_clip,
         approve_package,

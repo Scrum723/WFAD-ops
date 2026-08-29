@@ -11,7 +11,7 @@ You
 
 | Product | Repo | Role |
 | --- | --- | --- |
-| Doc | `Scrum723/DOC` (contest WFAD does not replace this) | What is true |
+| Doc | Live API `weather-agi-production.up.railway.app` | Weather neural net (14 modules). WFAD pulls snapshot products here. |
 | **WFAD ops** | **this repo `Scrum723/WFAD-ops`** | Arrive, score, sit with you on the story, emit approved bundle |
 | Leesa | `Scrum723/Leesa` / `~/social-media-liaison` | Post the bundle |
 | WFAD contest | `Scrum723/WFAD` | Frozen through judging. Do not merge ops here until winners. |
