@@ -18,6 +18,6 @@ Record after Cloud Run, Vertex or Gemini, and Firestore all exist. Mandatory fra
 4. Firestore after Cloud Run / Pub/Sub: `jnNGy5TfyBshqERanbQV` or `gzMJdrmUy6vDM75Hfhhn` → `04-firestore-cloudrun-run.png`
 5. Logs (Vertex/Gemini on Cloud Run): https://console.cloud.google.com/run/detail/us-central1/wfad-agent/logs?project=wfad-506515 → `05-cloud-run-logs.png`
 6. Pub/Sub topic: https://console.cloud.google.com/cloudpubsub/topic/detail/wfad-triggers?project=wfad-506515 → `06-pubsub.png`
-7. Gmail inbox: message **WFAD ROUTINE — Rochester, NY** → `07-outbound-email.png`
+7. Operator inbox: message **WFAD ROUTINE — Rochester, NY** → `07-outbound-email.png`
 
 Do not spend a day on a Next.js skin. The Cloud Run URL plus Firestore console is the UI judges need.
