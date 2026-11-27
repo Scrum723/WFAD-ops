@@ -111,7 +111,7 @@ curl -sS -X POST http://127.0.0.1:8080/trigger \
 
 ## Google Cloud (project `wfad-506515`)
 
-Account `cclottin@gmail.com`, billing on, APIs enabled, Firestore Native in `nam5` as named database **`wfad`**. SDK lives at `~/google-cloud-sdk` (sourced from `~/.zshrc`).
+Operator Google account, billing on, APIs enabled, Firestore Native in `nam5` as named database **`wfad`**. SDK lives at `~/google-cloud-sdk` (sourced from `~/.zshrc`).
 
 Still do if not already done:
 
@@ -174,7 +174,7 @@ gcloud pubsub topics publish wfad-triggers --project=wfad-506515 \
   --message='{"location":"Rochester, NY","reason":"pubsub_push"}'
 ```
 
-One real email went to `cclottin@gmail.com` (subject `WFAD ROUTINE — Rochester, NY`) with the Cloud Run briefing. Cloud Run `disseminate_package` still labels SMTP as a stub until `SMTP_*` secrets are set on the service.
+One real email went to the operator inbox (subject `WFAD ROUTINE — Rochester, NY`) with the Cloud Run briefing. Cloud Run `disseminate_package` still labels SMTP as a stub until `SMTP_*` secrets are set on the service.
 
 ## What not to do
 
@@ -190,7 +190,7 @@ One real email went to `cclottin@gmail.com` (subject `WFAD ROUTINE — Rochester
 | Skeleton + first Firestore doc | Done (`byXSNEQDZkcBt4LC6JDk`) |
 | Cloud Run loop | Done — `.run.app`, Vertex env, four tools |
 | Pub/Sub + Scheduler | Done — topic `wfad-triggers`, job `wfad-scheduled-briefing` |
-| One real outbound | Done — email to `cclottin@gmail.com` |
+| One real outbound | Done — email to the operator inbox |
 | Thursday video | Record from `docs/DEMO_SHOTLIST.md` (cap 4:00) |
 | Friday–Saturday | Devpost draft Friday, submit Saturday. Do not wait until Monday 31 August. |
 
